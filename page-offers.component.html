@@ -1,0 +1,109 @@
+<ion-row>
+  <ion-col size="12">
+    <div class="global-font-20" style="font-family: 'Roboto_bold';"
+      [style.text-align]="pageCtrl.platform.is('mobile') ? 'center' : 'left'">
+      {{ 'pageOffer.congratulations' | translate}}
+    </div>
+  </ion-col>
+</ion-row>
+
+<br />
+<ion-row>
+  <ion-col size="12">
+    <!-- <div [class]="pageCtrl.platform.is('mobile') ? 'font-family-regular global-font-14' : 'font-family-regular global-font-18'">
+     {{'pageOffer.summary_of_credit_terms' | translate}}
+    </div> -->
+    <div class="font-family-regular global-font-10" [style.text-align]="pageCtrl.platform.is('mobile') ? '' : 'left'" >
+      <span>{{'pageOffer.summary_text1' | translate}}</span><span class="blue-txt" (click)="openSummary('getSummary')">
+        {{ 'pageOffer.summary_of_credit_terms' | translate}} </span><span>{{'pageOffer.summary_text2' |
+        translate}}</span>
+    </div>
+  </ion-col>
+</ion-row>
+
+<br />
+<ion-row>
+  <ion-col size="12">
+    <!-- <div [class]="pageCtrl.platform.is('mobile') ? 'global-font-14' : 'global-font-18'" style="font-weight:bold;">
+      {{'pageOffer.selectingthe_offer' | translate}}
+    </div> -->
+    <div class="global-font-10" style="font-family: 'Roboto_bold';">
+      {{'pageOffer.selectingthe_offer' | translate}}
+    </div>
+  </ion-col>
+</ion-row>
+
+<br />
+
+<!-- Dummy iterator for testing-->
+<ion-row>
+  <ion-col [size]="pageCtrl.platform.is('mobile') ? '12' : '11'">
+    <ion-row [ngClass]="{'mobile-view' : pageCtrl.platform.is('mobile')}">
+      <ion-col [size]="pageCtrl.platform.is('mobile') ? '12' : '6'" *ngFor="let offer of offers;let s=index">
+        <app-offer-card [data]="offer" (selectOffer)="onSelectOffer($event)"></app-offer-card>
+      </ion-col>
+      <ion-col *ngIf="!pageCtrl.platform.is('mobile') && offers.length == 1" [size]="6">
+        <div>
+          <app-payment-calculator></app-payment-calculator>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="pageCtrl.platform.is('mobile')">
+        <app-payment-calculator [mobileView]="true"></app-payment-calculator>
+      </ion-col>
+    </ion-row>
+  </ion-col>
+  <ion-col *ngIf="!pageCtrl.platform.is('mobile') && offers.length > 1" [size]="pageCtrl.platform.is('mobile') ? '12' : '1'"
+    class="calc-box">
+    <div>
+      <app-payment-calculator></app-payment-calculator>
+    </div>
+  </ion-col>
+
+</ion-row>
+
+<ion-row>
+  <ion-col size="12">
+    <div class="annual-fee-box">
+      <span *ngIf="applyResponse && applyResponse.manualUnderwriting === 'Y'"><span style="color:red;"
+          class="font-family-regular global-font-8">†</span>This offer include Annual Fee of {{applyResponse.annualFee}}
+        which is build upon account and annual thereafter</span>
+      <section *ngIf="applyResponse && applyResponse.annualFee"><span style="color:red;"
+          class="font-family-regular global-font-8">††</span>This offer include Annual Fee of
+        {{applyResponse.annualFee}} which is build upon account and annual thereafter</section>
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <div class="offer-footer" [ngClass]="{'mobile-view-footer' : pageCtrl.platform.is('mobile')}">
+    <ion-grid>
+      <ion-row class="offer-grid-row">
+        <ion-col size="12" size-sm>
+          <div class="cb-box">
+            <ion-checkbox mode="md" [(ngModel)]="applicationDisclosure" (ionChange)="termsAgree()" color="light">
+            </ion-checkbox>
+            <ion-label class="cbLabel" (click)="openSummary('applicationDisclosure')">
+              {{'pageOffer.electronic_disclosures' | translate}}</ion-label>
+          </div>
+          <div>
+            <span> {{'pageOffer.acknowledging_electronic_disclosures' | translate}}</span>
+          </div>
+        </ion-col>
+        <ion-col size="12" size-sm>
+          <div class="cb-box">
+            <ion-checkbox mode="md" [(ngModel)]="cardAgreement" (ionChange)="termsAgree()" color="light"></ion-checkbox>
+            <ion-label class="cbLabel" (click)="openSummary('cardAgreement')">{{'pageOffer.cardholder_greement' |
+              translate}}</ion-label>
+          </div>
+          <div>
+            <span>{{'pageOffer.acknowledging_cardholder_agreement' | translate}}</span>
+          </div>
+        </ion-col>
+        <ion-col size="12" size-sm class="btn-accept-box">
+          <ion-button (click)="onAcceptClick()" [disabled]="disableButton">{{'pageOffer.accept' | translate}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-row>
