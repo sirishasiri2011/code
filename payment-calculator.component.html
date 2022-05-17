@@ -66,7 +66,32 @@
           </ion-row>
           <ion-row  class="p-0">
             <ion-col  class="p-0">
-              <ion-button style="--background:gray" class="font-family-bold global-font-13">{{'paymentCalculator.calculate' | translate}}</ion-button>
+              <ion-button style="--background:gray" class="font-family-bold global-font-13" (click) ="calculatePayment()">{{'paymentCalculator.calculate' | translate}}</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row  class="p-0" *ngIf = "showPaymentInfo">
+            <ion-col  class="p-0">
+               <ion-row  class="p-0">
+                   <ion-label>payments</ion-label>
+               <ion-row>
+               <ion-row  class="p-0">
+                   <ion-col  class="p-0">
+                    <ion-row  class="p-0">
+                        <ion-label>${{}}</ion-label>
+                    <ion-row>
+                     <ion-row  class="p-0">
+                        <ion-label>Monthly</ion-label>
+                   <ion-row>
+                  </ion-col>
+                    <ion-col  class="p-0">
+                    <ion-row  class="p-0">
+                        <ion-label>{{}} Months</ion-label>
+                    <ion-row>
+                     <ion-row  class="p-0">
+                        <ion-label>Duration</ion-label>
+                   <ion-row>
+                  </ion-col>
+               <ion-row>
             </ion-col>
           </ion-row>
         </ion-col>
